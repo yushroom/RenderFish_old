@@ -1,0 +1,17 @@
+temp/
+build/
+GUI/obj
+*.exe
+*.pdb
+*~
+config.txt
+
+# Visual studio files
+/ipch
+*.sdf
+*.opensdf
+*.ipch
+*.suo
+*.user
+*.psess
+*.vspx
