@@ -1,0 +1,32 @@
+﻿Build started 3/25/2015 9:44:40 PM.
+     1>Project "D:\program\github\RenderFish\Camera\Camera.vcxproj" on node 4 (Build target(s)).
+     1>CustomBuild:
+         fxc compile for release: D:\program\github\RenderFish\HLSL\Basic.fx
+         Microsoft (R) Direct3D Shader Compiler 6.3.9600.16384
+         Copyright (C) 2013 Microsoft. All rights reserved.
+         
+     1>CUSTOMBUILD : warning X4717: Effects deprecated for D3DCompiler_47
+         
+         compilation object save succeeded; see D:\program\github\RenderFish\HLSL\Basic.fxo
+         fxc compile for release: D:\program\github\RenderFish\HLSL\LightHelper.fx
+         Microsoft (R) Direct3D Shader Compiler 6.3.9600.16384
+         Copyright (C) 2013 Microsoft. All rights reserved.
+         
+     1>CUSTOMBUILD : warning X4717: Effects deprecated for D3DCompiler_47
+         
+         compilation object save succeeded; see D:\program\github\RenderFish\HLSL\LightHelper.fxo
+         fxc compile for release: D:\program\github\RenderFish\HLSL\test.fx
+         Microsoft (R) Direct3D Shader Compiler 6.3.9600.16384
+         Copyright (C) 2013 Microsoft. All rights reserved.
+         
+     1>CUSTOMBUILD : warning X4717: Effects deprecated for D3DCompiler_47
+         
+         compilation object save succeeded; see D:\program\github\RenderFish\HLSL\test.fxo
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /wdc4005 /analyze- /errorReport:prompt CameraDemo.cpp Main.cpp
+     1>cl : Command line error D8021: invalid numeric argument '/wdc4005'
+     1>Done Building Project "D:\program\github\RenderFish\Camera\Camera.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:03.21

@@ -1,0 +1,16 @@
+﻿Build started 3/25/2015 10:37:29 PM.
+     1>Project "D:\program\github\RenderFish\GUI\GUIEditorCore\GUIEditorCore.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /wd4005 /analyze- /errorReport:prompt EditorApp.cpp EditorAppCore.cpp Export.cpp
+         Export.cpp
+     1>d:\program\github\renderfish\gui\guieditorcore\export.cpp(1): fatal error C1083: Cannot open include file: 'RfCore.h': No such file or directory
+         EditorAppCore.cpp
+         EditorApp.cpp
+     1>d:\program\github\renderfish\gui\guieditorcore\editorapp.h(4): fatal error C1083: Cannot open include file: 'RfCore.h': No such file or directory
+         Generating Code...
+     1>Done Building Project "D:\program\github\RenderFish\GUI\GUIEditorCore\GUIEditorCore.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.18
