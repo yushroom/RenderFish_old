@@ -3,6 +3,7 @@
 //***************************************************************************************
 
 #include "Effects.h"
+#include "Global.h"
 
 using namespace RenderFish;
 
@@ -84,8 +85,9 @@ BasicEffect::~BasicEffect()
 
 BasicEffect* Effects::BasicFX = 0;
 
-void Effects::InitAll(ID3D11Device* device)
+void Effects::InitAll()
 {
+	auto device = RenderContext::Device();
 	BasicFX = new BasicEffect(device, L"D:/program/github/RenderFish/HLSL/Basic.fxo");
 	//PRTFX = new PRTEffect(device, L"FX/PRT.fxo");
 }

@@ -3,6 +3,7 @@
 //***************************************************************************************
 
 #include "RenderStates.h"
+#include "Global.h"
 
 using namespace RenderFish;
 
@@ -12,8 +13,10 @@ ID3D11RasterizerState* RenderStates::NoCullRS    = 0;
 ID3D11BlendState*      RenderStates::AlphaToCoverageBS = 0;
 ID3D11BlendState*      RenderStates::TransparentBS     = 0;
 
-void RenderStates::InitAll(ID3D11Device* device)
+void RenderStates::InitAll()
 {
+	auto device = RenderContext::Device();
+
 	//
 	// WireframeRS
 	//

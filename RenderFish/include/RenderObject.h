@@ -8,6 +8,7 @@
 #include "Vertex.h"
 #include "Effects.h"
 #include "Camera.h"
+#include "Global.h"
 
 namespace RenderFish
 {
@@ -42,14 +43,20 @@ namespace RenderFish
 
 		}
 
-		virtual void Draw(ID3D11Device* pDevice, ID3D11DeviceContext* pd3dDeviceContext, const Camera& camera)
+		virtual void Draw()
 		{
+			auto pDevice = RenderContext::Device();
+			auto pd3dDeviceContext = RenderContext::DeviceContext();
+			auto pCamera = RenderContext::CurrentCamera();
+
 			UINT stride = sizeof(Vertex::Basic32);
 			UINT offset = 0;
 
-			auto view = camera.View();
-			auto proj = camera.Proj();
-			auto viewProj = camera.ViewProj();
+			auto view = pCamera->View();
+			auto proj = pCamera->Proj();
+			auto viewProj = pCamera->ViewProj();
+
+			auto mpTechnique = RenderContext::Technique();
 
 			D3DX11_TECHNIQUE_DESC techDesc;
 			mpTechnique->GetDesc(&techDesc);
@@ -73,12 +80,12 @@ namespace RenderFish
 			}
 		}
 
-		void BuildGeometeryBuffers(ID3D11Device* pDevice, bool forceRebuilt = false);
+		void BuildGeometeryBuffers(bool forceRebuilt = false);
 
-		void SetEffectTechnique(ID3DX11EffectTechnique* pTechnique)
-		{
-			mpTechnique = pTechnique;
-		}
+		//void SetEffectTechnique(ID3DX11EffectTechnique* pTechnique)
+		//{
+		//	mpTechnique = pTechnique;
+		//}
 
 		Transform& transform()
 		{
@@ -95,7 +102,7 @@ namespace RenderFish
 		ID3D11Buffer* mVB;
 		ID3D11Buffer* mIB;
 
-		ID3DX11EffectTechnique* mpTechnique;
+		//ID3DX11EffectTechnique* mpTechnique;
 	};
 
 }

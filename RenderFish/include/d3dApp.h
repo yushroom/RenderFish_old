@@ -13,6 +13,7 @@
 
 #include "d3dUtil.h"
 #include "GameTimer.h"
+#include "Global.h"
 #include <string>
 
 class D3DApp
@@ -53,34 +54,23 @@ protected:
 
 protected:
 
-	HINSTANCE mhAppInst;
+	HINSTANCE	mhAppInst;
 	HWND		_mhWnd;
-	bool _external_wnd;
-	HWND      mhMainWnd;
-	bool      mAppPaused;
-	bool      mMinimized;
-	bool      mMaximized;
-	bool      mResizing;
-	UINT      m4xMsaaQuality;
+	bool		_external_wnd;
+	HWND		mhMainWnd;
+	bool		mAppPaused;
+	bool		mMinimized;
+	bool		mMaximized;
+	bool		mResizing;
 
 	RenderFish::GameTimer mTimer;
 	bool mFPSLocked;
 	float mTimePerFrame;
 
-	ID3D11Device* md3dDevice;
-	ID3D11DeviceContext* md3dImmediateContext;
-	IDXGISwapChain* mSwapChain;
-	ID3D11Texture2D* mDepthStencilBuffer;
-	ID3D11RenderTargetView* mRenderTargetView;
-	ID3D11DepthStencilView* mDepthStencilView;
-	D3D11_VIEWPORT mScreenViewport;
-
 	// Derived class should set these in derived constructor to customize starting values.
 	std::wstring mMainWndCaption;
-	D3D_DRIVER_TYPE md3dDriverType;
 	int mClientWidth;
 	int mClientHeight;
-	bool mEnable4xMsaa;
 };
 
 #endif // D3DAPP_H

@@ -2,6 +2,7 @@
 #define GAMEOBJECT_H
 
 #include <vector>
+#include "RFObject.h"
 #include "Transform.h"
 #include "Debug.h"
 
@@ -11,32 +12,6 @@
 
 namespace RenderFish
 {
-	class RFObject
-	{
-	public:
-		bool hideFlags;
-		std::string name;
-
-		RFObject()
-		{
-
-		}
-		virtual ~RFObject()
-		{
-
-		}
-
-		virtual std::string ToString()
-		{
-			return name;
-		}
-
-		static void Destroy()
-		{
-
-		}
-	};
-
 	class RFMaterial : public RFObject
 	{
 	public:
@@ -62,7 +37,7 @@ namespace RenderFish
 		}
 
 	public:
-		GameObject* GameObject;
+		GameObject* gameObject;
 		std::string tag;
 		Transform transtrom;
 
@@ -76,6 +51,11 @@ namespace RenderFish
 	private:
 		//const static std::string _typeName;
 	};
+	
+
+	class MeshRender;
+	class MeshFilter;
+	class RenderObject;
 
 	class GameObject : public RFObject
 	{
@@ -89,6 +69,7 @@ namespace RenderFish
 
 		}
 
+		// ========== getter && setter
 		bool Active()
 		{
 			return _active;
@@ -97,6 +78,13 @@ namespace RenderFish
 		{
 			_active = value;
 		}
+
+		Transform& transform()
+		{
+			return _transform;
+		}
+
+		// =========== Component
 
 		template<typename T>
 		void AddComponent(T *component)
@@ -107,53 +95,98 @@ namespace RenderFish
 				auto& comp = _components[i];
 				if (comp->TypeName() == typeName)	// if the same type of Component exists, then replace it
 				{
-					comp->GameObject = nullptr;
+					comp->gameObject = nullptr;
 					comp->Destroy();
 					_components[i] = component;
 					return;
 				}
 			}
 			// add new Component;
-			component->GameObject = this;
+			component->gameObject = this;
 			_components.push_back(component);
 		}
 
 		template<typename T>
-		Component* GetComponent()
+		T* GetComponent()
 		{
 			auto typeName = std::string(typeid(T).name());
 			for (auto comp : _components)
 			{
 				if (comp->TypeName() == typeName)
 				{
-					return comp;
+					return static_cast<T*>(comp);
 				}
 			}
 			return nullptr;
 		}
 
+		void Destroy();
+
 	public:
+		void _Init();
+		virtual void Update()
+		{
+			for (auto comp : _components)
+			{
+			}
+		}
+		void Draw();
+
+
 
 	protected:
 
 	private:
+		bool _RenderAble()
+		{
+			return (nullptr != GetComponent<MeshFilter>());
+		}
+
 		
 
+
 	private:
-		std::string _tag;
-		unsigned int _layer;
+		std::string _tag = "";
+		unsigned int _layer = 0;
 		bool _active = true;
 		Transform _transform;
 
 		std::vector <Component*>  _components;
+
+		//bool _renderable;
+		RenderObject*  _renderObject = nullptr;
 	};
 
-	//class MeshFilter : public Component
-	//{
-	//public:
-	//	//RFMesh mesh;
-	//	//RFMesh sharedMesh;
-	//};
+	class Mesh;
+
+	class MeshFilter : public Component
+	{
+	public:
+		MeshFilter(Mesh* mesh) : pMesh(mesh)
+		{
+
+		}
+
+		Mesh* pMesh;
+		//RFMesh sharedMesh;
+	};
+
+	// Behaviours are Components that can be enabled or disabled.
+	class Behaviour : public Component
+	{
+	public:
+		bool enabled = true;
+		bool isActiveAndEnabled = true;
+	};
+
+	// MonoBehaviour is the base class every script derives from.
+	class MonoBehaviour : public Behaviour
+	{
+	public:
+		virtual void OnEnable();
+		virtual void Update();
+		virtual void Draw();
+	};
 
 	class Render : public Component
 	{
@@ -161,9 +194,23 @@ namespace RenderFish
 		RFMaterial mateial;
 	};
 
+
+	// The Mesh Renderer takes the geometry from the Mesh Filter and renders it at the position defined by the object¡¯s Transform component
 	class MeshRender : public Render
 	{
+	public:
+		bool renderable{ true };
 		
+		void OnEnable()
+		{
+			
+		}
+
+		void Draw()
+		{
+			auto meshFilter = gameObject->GetComponent<MeshFilter>();
+
+		}
 	};
 }
 #endif //GAMEOBJECT_H

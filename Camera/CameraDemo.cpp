@@ -39,15 +39,18 @@ bool CameraApp::Init()
 	LockFPS(true, 60);
 
 	// Must init Effects first since InputLayouts depend on shader signatures.
-	Effects::InitAll(md3dDevice);
-	InputLayouts::InitAll(md3dDevice);
+	Effects::InitAll();
+	InputLayouts::InitAll();
 
-	auto dragonObj = new RenderObject(new Mesh(Global::ModelDir + "Dragon.obj"));
-	dragonObj->transform().SetScale(4, 4, 4);
-	dragonObj->transform().SetPosition(0, 0, 0);
-	mScene.AddRenderObject(dragonObj);
+	auto dragonMesh = new Mesh(Global::ModelDir + "Dragon.obj");
+	auto dragonGO = new GameObject();
+	auto dragonMeshFilter = new MeshFilter(dragonMesh);
+	dragonGO->AddComponent<MeshFilter>(dragonMeshFilter);
+	dragonGO->transform().SetScale(4, 4, 4);
+	dragonGO->transform().SetPosition(0, 0, 0);
+	mScene.AddGameObjects(dragonGO);
 
-	mScene.Init(md3dDevice);
+	mScene.Init();
 
 	return true;
 }
@@ -66,13 +69,19 @@ void CameraApp::UpdateScene(float dt)
 
 void CameraApp::DrawScene()
 {
+	auto md3dDevice = RenderContext::Device();
+	auto md3dImmediateContext = RenderContext::DeviceContext();
+	auto mRenderTargetView = RenderContext::RenderTargetView();
+	auto mDepthStencilView = RenderContext::DepthStencilView();
+	auto mSwapChain = RenderContext::SwapChain();
+
 	md3dImmediateContext->ClearRenderTargetView(mRenderTargetView, reinterpret_cast<const float*>(&Colors::Silver));
 	md3dImmediateContext->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH|D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	md3dImmediateContext->IASetInputLayout(InputLayouts::Basic32);
     md3dImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	mScene.Draw(md3dDevice, md3dImmediateContext);
+	mScene.Draw();
 
 	HR(mSwapChain->Present(0, 0));
 }

@@ -2,8 +2,10 @@
 
 using namespace RenderFish;
 
-void RenderObject::BuildGeometeryBuffers(ID3D11Device* pDevice, bool forceRebuilt /*= false*/)
+void RenderObject::BuildGeometeryBuffers(bool forceRebuilt /*= false*/)
 {
+	auto pDevice = RenderContext::Device();
+
 	if (isBufferCreated && !forceRebuilt)
 	{
 		return;

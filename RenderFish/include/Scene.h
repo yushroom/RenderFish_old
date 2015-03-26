@@ -7,6 +7,7 @@
 #include "Vertex.h"	// TODO
 #include "Effects.h"
 #include "RenderObject.h"
+#include "GameObject.h"
 
 namespace RenderFish
 {
@@ -44,21 +45,26 @@ namespace RenderFish
 		virtual ~Scene() 
 		{
 			// delete
-			for (auto obj : mRenderObjects)
+			for (auto obj : mGameObjects)
 			{
 				SafeDelete(obj);
 			}
 
-			mRenderObjects.clear();
+			mGameObjects.clear();
 		}
 
-		virtual void Init(ID3D11Device* pDevice)
+		virtual void Init()
 		{
 			//MainCamera.SetPosition(0.0f, 2.0f, -15.0f);
 
-			for (auto obj : mRenderObjects)
+			//for (auto obj : mRenderObjects)
+			//{
+			//	obj->BuildGeometeryBuffers(pDevice);
+			//}
+
+			for (auto obj : mGameObjects)
 			{
-				obj->BuildGeometeryBuffers(pDevice);
+				obj->_Init();
 			}
 		}
 
@@ -95,15 +101,19 @@ namespace RenderFish
 				mLightCount = 3;
 
 			// update RenderObjects
-			for (auto obj : mRenderObjects)
-			{
-				obj->Update(dt);
-			}
+			//for (auto obj : mRenderObjects)
+			//{
+			//	obj->Update(dt);
+			//}
 		}
 
-		virtual void Draw(ID3D11Device* pDevice, ID3D11DeviceContext* pd3dDeviceContext)
+		virtual void Draw()
 		{
+			auto pDevice = RenderContext::Device();
+			auto pd3dDeviceContext = RenderContext::DeviceContext();
+
 			MainCamera.UpdateViewMatrix();
+			RenderContext::SetCamera(&MainCamera);
 
 			//Matrix4x4 view = MainCamera.View();
 			//Matrix4x4 proj = MainCamera.Proj();
@@ -133,16 +143,17 @@ namespace RenderFish
 				break;
 			}
 
-			for (auto obj : mRenderObjects)
+			RenderContext::SetTechnique(activeTech);
+
+			for (auto obj : mGameObjects)
 			{
-				obj->SetEffectTechnique(activeTech); 
-				obj->Draw(pDevice, pd3dDeviceContext, MainCamera);
+				obj->Draw();
 			}
 		}
 
-		void AddRenderObject(RenderObject* object)
+		void AddGameObjects(GameObject* object)
 		{
-			mRenderObjects.push_back(object);
+			mGameObjects.push_back(object);
 		}
 
 	public:
@@ -155,7 +166,7 @@ namespace RenderFish
 
 	private:
 		//static Scene* instance;
-		std::vector<RenderObject*> mRenderObjects;
+		std::vector<GameObject*> mGameObjects;
 		
 		UINT mLightCount = 3;
 		DirectionalLight mDirLights[3];

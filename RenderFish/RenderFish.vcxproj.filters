@@ -51,9 +51,6 @@
     <ClInclude Include="include\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RenderObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\RenderStates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -85,6 +82,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RFObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RFObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

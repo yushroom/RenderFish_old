@@ -1,5 +1,6 @@
 #include "Vertex.h"
 #include "Effects.h"
+#include "Global.h"
 
 using namespace RenderFish;
 
@@ -37,8 +38,10 @@ ID3D11InputLayout* InputLayouts::PosAndNormal = 0;
 ID3D11InputLayout* InputLayouts::Basic32 = 0;
 //ID3D11InputLayout* InputLayouts::PRT64 = 0;
 
-void InputLayouts::InitAll(ID3D11Device* device)
+void InputLayouts::InitAll()
 {
+	auto device = RenderContext::Device();
+
 	D3DX11_PASS_DESC passDesc;
 
 	//

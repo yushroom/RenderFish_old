@@ -13,7 +13,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "GameObject.h"
+#include "RFObject.h"
 #include "Debug.h"
 #include "Vector.h"
 
@@ -29,7 +29,7 @@ namespace RenderFish
 	//typedef std::vector<Vector3> NormalArray;
 	//typedef std::vector<Vector2> UVArray;
 
-	class Mesh : public Component
+	class Mesh : public RFObject
 	{
 	public:
 		Mesh() {};
@@ -110,8 +110,6 @@ namespace RenderFish
 		Vector3Array mNormals;
 		Vector2Array mUV;
 	};
-
-	typedef Mesh MeshFilter;
 
 	class MeshManager
 	{

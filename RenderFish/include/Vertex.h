@@ -38,7 +38,7 @@ public:
 class InputLayouts
 {
 public:
-	static void InitAll(ID3D11Device* device);
+	static void InitAll();
 	static void DestroyAll();
 
 	static ID3D11InputLayout* PosAndNormal;
